@@ -12,12 +12,24 @@ class LoginView extends StatelessWidget {
         ),
         body: Center(
           child: Consumer<AuthProvider>(builder: (context, model, child) {
-            return FlatButton(
-              onPressed: () {
-                model.setLogged();
-              },
-              child: Text('Login'),
-            );
+            return Container(
+              child: 
+              Column(
+                children: [
+                  FlatButton(
+                    onPressed: () {
+                      model.setLogged();
+                    },
+                    child: Text('Login'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      //pagina Sing Up
+                    },
+                    child: Text('Sing Up'),
+                  ),
+                ],
+            ));
           }),
         ));
   }

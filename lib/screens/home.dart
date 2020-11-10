@@ -3,44 +3,65 @@ import 'package:flutter/material.dart';
 import 'package:karma_flutterversion/providers/authProvider.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+import 'favors.dart';
+import 'newfavors.dart';
+
+class HomeView extends StatefulWidget {
+  @override
+  _HomeView createState() => _HomeView();
+}
+
+class _HomeView extends State<HomeView> {
+  int _page = 0;
+  GlobalKey _bottomNavigationKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.white,
-        color: Colors.purple,
-        animationCurve: Curves.easeOutExpo,
-        index: 0,
-        height: 60.0,
-        items: <Widget>[
-          Icon(Icons.person, size: 30, color: Colors.white),
-          Icon(Icons.list, size: 30, color: Colors.white),
-          Icon(Icons.add, size: 30, color: Colors.white),
-        ],
-        onTap: (index) {
-          //Handle button tap
-        },
-      ),
-      appBar: AppBar(
-        title: Text("Home"),
-        backgroundColor: Colors.purple,
-      ),
-      body: Container(
-        color:  Colors.white,
-        child: 
-         Center(
-          child: Consumer<AuthProvider>(builder: (context, model, child) {
-            return FlatButton(
-              onPressed: () {
-                model.setLogged();
-              },
-              child: Text('Logout'),
-            );
-          }),
+        appBar: AppBar(
+          title: Text("Home"),
+          backgroundColor: Colors.purple,
         ),
-      )
-    );
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 60.0,
+          items: <Widget>[
+            Icon(Icons.person, size: 30, color: Colors.white),
+            Icon(Icons.list, size: 30, color: Colors.white),
+            Icon(Icons.add, size: 30, color: Colors.white),
+          ],
+          backgroundColor: Colors.white,
+          color: Colors.purple,
+          animationCurve: Curves.easeOutExpo,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+        ),
+        body: Container(
+          color: Colors.white,
+          child: Center(
+            child: Consumer<AuthProvider>(builder: (context, model, child) {
+              if (_page == 2) {
+                return BinToDec();
+              } else {
+                if (_page == 1) {
+                  return DecToBin();
+                } else {
+                  return FlatButton(
+                    onPressed: () {
+                      model.setLogged();
+                    },
+                    child: Text('Logout'),
+                  );
+                }
+              }
+            }),
+          ),
+        ));
   }
 }
 
