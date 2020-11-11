@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'home.dart';
 import 'login.dart';
+import 'signup.dart';
 
 class BaseApp extends StatelessWidget {
   @override
@@ -16,10 +17,14 @@ class BaseApp extends StatelessWidget {
             title: 'Karma',
             home: Consumer<AuthProvider>(
               builder: (context, model, child) {
-                if (model.getLogged) {
-                  return BaseHomeApp();
-                } else {
+                if (model.getLogged == 0){
                   return LoginView();
+                }else{
+                  if(model.getLogged == 1){
+                     return BaseHomeApp();
+                  }else{
+                    return SingUp();
+                  }
                 }
               },
             )));

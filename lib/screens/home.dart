@@ -25,7 +25,7 @@ class _HomeView extends State<HomeView> {
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
           index: 0,
-          height: 60.0,
+          height: 55.0,
           items: <Widget>[
             Icon(Icons.person, size: 30, color: Colors.white),
             Icon(Icons.list, size: 30, color: Colors.white),
@@ -53,7 +53,7 @@ class _HomeView extends State<HomeView> {
                 } else {
                   return FlatButton(
                     onPressed: () {
-                      model.setLogged();
+                      model.setLogged(0);
                     },
                     child: Text('Logout'),
                   );

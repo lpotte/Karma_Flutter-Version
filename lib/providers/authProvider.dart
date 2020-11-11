@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProvider extends ChangeNotifier {
-  bool _logged = false;
+  int _logged = 0;
 
   AuthProvider() {
     _readSharedPreferences();
@@ -10,15 +10,15 @@ class AuthProvider extends ChangeNotifier {
 
   get getLogged => _logged;
 
-  void setLogged() {
-    _logged = _logged == false ? true : false;
+  void setLogged(int key) {
+    _logged = key;
     _saveSharedPreferences();
     notifyListeners();
   }
 
   _readSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    final sharedLogged = prefs.getBool('_logged') ?? false;
+    final sharedLogged = prefs.getInt('_logged');
     if (sharedLogged != null) {
       _logged = sharedLogged;
       notifyListeners();
@@ -27,6 +27,6 @@ class AuthProvider extends ChangeNotifier {
 
   _saveSharedPreferences() async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('_logged', _logged);
+    prefs.setInt('_logged', _logged);
   }
 }

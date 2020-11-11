@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class businessLogicProvider extends ChangeNotifier {
-  bool _logged = false;
+  int _logged = 0;
 
   get getLogged => _logged;
 
-  void setLogged() {
-    _logged = _logged == false ? true : false;
+  void setLogged(int key) {
+    _logged = key;
     notifyListeners();
   }
 }
