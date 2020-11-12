@@ -41,7 +41,7 @@ class BaseHomeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Login"),
+          title: Text("Karma"),
           backgroundColor: Colors.purple,
         ),
         body: Center(
@@ -61,7 +61,7 @@ class BaseHomeApp extends StatelessWidget {
                     onPressed: () {
                       model.setLogged(1);
                     },
-                    child: Text('Sign Up', style: TextStyle(color: Colors.white)),
+                    child: Text('Sign In', style: TextStyle(color: Colors.white)),
                     color: Colors.purple,
                   ),
                 ),

@@ -1,142 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:karma_flutterversion/providers/authProvider.dart';
+import 'package:provider/provider.dart';
 
-class BinToDec extends StatefulWidget {
-  @override
-  _BinToDecState createState() => _BinToDecState();
-}
-
-class _BinToDecState extends State<BinToDec> {
-  String _binary = "";
-  String _decimal = "0";
-
-  void _onPressed(String value) {
-    setState(() {
-      _binary = _binary + value;
-      _decimal = int.parse(_binary, radix: 2).toRadixString(10);
-    });
-  }
-
+class NewFavor extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: <
-          Widget>[
-        Container(
-            padding: const EdgeInsets.all(8.0),
-            alignment: Alignment.centerRight,
-            child: Text(
-              '$_binary',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(int.parse("#1f1f1f".replaceAll('#', '0xff'))),
-                  fontSize: 35),
-            )),
-        Container(
-            padding: const EdgeInsets.all(8.0),
-            alignment: Alignment.centerRight,
-            child: Text(
-              '$_decimal',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(int.parse("#1f1f1f".replaceAll('#', '0xff'))),
-                  fontSize: 35),
-            )),
-        Expanded(
-            flex: 3,
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: new Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Center(
+            child: Consumer<AuthProvider>(builder: (context, model, child) {
+          return Form(
+              key: _formKey,
+              child: Container(
+                //padding: const EdgeInsets.all(32),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Expanded(
-                      flex: 7,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xffffffff),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.00, 3.00),
-                                  color: Color(int.parse(
-                                      "#EAEAEA".replaceAll('#', '0xff'))),
-                                  blurRadius: 10)
-                            ],
-                            borderRadius: BorderRadius.circular(4.00)),
-                        child: MaterialButton(
-                            color: Color(
-                                int.parse("#ffffff".replaceAll('#', '0xff'))),
-                            onPressed: () {
-                              _onPressed("1");
-                            },
-                            child: Text("1",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                    fontSize: 24))),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      //Text("Digite su correo electronico"),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.power_input),
+                          hintText: 'Type of favor',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                        },
                       ),
                     ),
                     Spacer(),
-                    Expanded(
-                      flex: 7,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Color(0xffffffff),
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(0.00, 3.00),
-                                  color: Color(int.parse(
-                                      "#EAEAEA".replaceAll('#', '0xff'))),
-                                  blurRadius: 10)
-                            ],
-                            borderRadius: BorderRadius.circular(4.00)),
-                        child: MaterialButton(
-                            color: Color(
-                                int.parse("#ffffff".replaceAll('#', '0xff'))),
-                            onPressed: () {
-                              _onPressed("0");
-                            },
-                            child: Text("0",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
-                                    fontSize: 24))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      //Text("Digite su correo electronico"),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.gps_fixed),
+                          hintText: 'Ubication',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                        },
                       ),
-                    )
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      //Text("Digite su contraseña"),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.list),
+                          hintText: 'Datails',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    RaisedButton(
+                      child:
+                          Text('Submit', style: TextStyle(color: Colors.white)),
+                      color: Colors.purple,
+                      onPressed: () {
+                        model.setLogged(3);
+                        if (_formKey.currentState.validate()) {
+                          // Si el formulario es válido, queremos mostrar un Snackbar
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Processing Data')));
+                        }
+                      },
+                    ),
+                    Spacer(flex: 2),
                   ],
-                ))),
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Color(0xffffffff),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: Offset(0.00, 3.00),
-                        color:
-                            Color(int.parse("#EAEAEA".replaceAll('#', '0xff'))),
-                        blurRadius: 10)
-                  ],
-                  borderRadius: BorderRadius.circular(4.00)),
-              child: MaterialButton(
-                  color: Color(int.parse("#F00000".replaceAll('#', '0xff'))),
-                  onPressed: () {
-                    setState(() {
-                      _binary = "";
-                      _decimal = "0";
-                    });
-                  },
-                  child: Text("Reset",
-                      style: new TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.white,
-                      ))),
-            ),
-          ),
-        ),
-      ]),
-    );
+                ),
+              ));
+        }));
   }
 }

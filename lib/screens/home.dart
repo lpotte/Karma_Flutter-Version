@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'favors.dart';
 import 'newfavors.dart';
+import 'profile.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -46,17 +47,12 @@ class _HomeView extends State<HomeView> {
           child: Center(
             child: Consumer<AuthProvider>(builder: (context, model, child) {
               if (_page == 2) {
-                return BinToDec();
+                return NewFavor();
               } else {
                 if (_page == 1) {
-                  return DecToBin();
+                  return ListFavors();
                 } else {
-                  return FlatButton(
-                    onPressed: () {
-                      model.setLogged(0);
-                    },
-                    child: Text('Logout'),
-                  );
+                  return Profile();
                 }
               }
             }),
