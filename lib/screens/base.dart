@@ -18,12 +18,17 @@ class BaseApp extends StatelessWidget {
             home: Consumer<AuthProvider>(
               builder: (context, model, child) {
                 if (model.getLogged == 0){
-                  return LoginView();
+                  return BaseHomeApp();
                 }else{
                   if(model.getLogged == 1){
-                     return BaseHomeApp();
+                     return LoginView();
                   }else{
-                    return SingUp();
+                    if(model.getLogged == 2){
+                      return SingUp();
+                    }else{
+                      return HomeView();
+                    }
+                    
                   }
                 }
               },
@@ -32,13 +37,51 @@ class BaseApp extends StatelessWidget {
 }
 
 class BaseHomeApp extends StatelessWidget {
-  const BaseHomeApp({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<businessLogicProvider>(
-        create: (context) => businessLogicProvider(), child: HomeView());
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Login"),
+          backgroundColor: Colors.purple,
+        ),
+        body: Center(
+          child: Consumer<AuthProvider>(builder: (context, model, child) {
+            return Container(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Spacer(),
+                Image.asset(
+                  'imgs/logo2.png',
+                  height: 250,
+                  fit: BoxFit.contain,
+                ),
+                Center(
+                  child: MaterialButton(
+                    onPressed: () {
+                      model.setLogged(1);
+                    },
+                    child: Text('Sign Up', style: TextStyle(color: Colors.white)),
+                    color: Colors.purple,
+                  ),
+                ),
+                Spacer(flex: 2),
+                Expanded(
+                  flex: 1,
+                    child: Container(
+                  //padding: const EdgeInsets.all(5),
+                  child: MaterialButton(
+                      onPressed: () {
+                        model.setLogged(2);
+                      },
+                      child: Text('Sing Up',
+                          style: TextStyle(color: Colors.white)),
+                      color: Colors.purple),
+                )),
+              ],
+            ));
+          }),
+        ));
   }
 }
+

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'signup.dart';
 
 class LoginView extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,42 +14,71 @@ class LoginView extends StatelessWidget {
           backgroundColor: Colors.purple,
         ),
         body: Center(
-          child: Consumer<AuthProvider>(builder: (context, model, child) {
-            return Container(
+            child: Consumer<AuthProvider>(builder: (context, model, child) {
+          return Form(
+              key: _formKey,
+              child: Container(
+                //padding: const EdgeInsets.all(32),
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Spacer(),
-                Image.asset(
-                  'imgs/logo2.png',
-                  height: 250,
-                  fit: BoxFit.contain,
-                ),
-                Center(
-                  child: MaterialButton(
-                    onPressed: () {
-                      model.setLogged(1);
-                    },
-                    child: Text('Login', style: TextStyle(color: Colors.white)),
-                    color: Colors.purple,
-                  ),
-                ),
-                Spacer(flex: 2),
-                Expanded(
-                  flex: 1,
-                    child: Container(
-                  //padding: const EdgeInsets.all(5),
-                  child: MaterialButton(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'imgs/logo2.png',
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      //Text("Digite su correo electronico"),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.email),
+                          hintText: 'Enter your email',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      //Text("Digite su contraseña"),
+                      child: TextFormField(
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          prefixIcon: Icon(Icons.lock),
+                          hintText: 'Enter your password',
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                        },
+                      ),
+                    ),
+                    Spacer(),
+                    RaisedButton(
+                      child:
+                          Text('Login', style: TextStyle(color: Colors.white)),
+                      color: Colors.purple,
                       onPressed: () {
-                        model.setLogged(2);
+                        model.setLogged(3);
+                        if (_formKey.currentState.validate()) {
+                          // Si el formulario es válido, queremos mostrar un Snackbar
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text('Processing Data')));
+                        }
                       },
-                      child: Text('Sing Up',
-                          style: TextStyle(color: Colors.white)),
-                      color: Colors.purple),
-                )),
-              ],
-            ));
-          }),
-        ));
+                    ),
+                    Spacer(flex: 2),
+                  ],
+                ),
+              ));
+        })));
   }
 }
