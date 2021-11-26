@@ -9,7 +9,11 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="karma_flutterversion"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyCPtCQK-OzxsI3LKKv1vkCH5FZxJ8RZsyM"/>
         <activity
+
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

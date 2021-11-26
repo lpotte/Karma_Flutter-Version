@@ -13,13 +13,13 @@ class favor {
 
 }
 final favorsList = [
-  new favor(tipo: "Fotocopias", estado: "en proceso", who: "luis", towho: "Martin"),
+  new favor(tipo: "Transacción", estado: "a realizar", who: "luis", towho: "Martin"),
 ];
 
 llenarfavs(){
   favorsList.clear();
   for (var i=1;i<5;i++){
-    favorsList.add(new favor(tipo: "Fotocopias", estado: "en proceso", who: "luis", towho: "Martin"));
+    favorsList.add(new favor(tipo: "Transacción", estado: "realizada", who: "luis", towho: "Martin"));
   }
 }
 

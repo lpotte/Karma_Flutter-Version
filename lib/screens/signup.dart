@@ -7,19 +7,21 @@ class SingUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding: false,
-        appBar: AppBar(
-          title: Text("Sing Up"),
-          backgroundColor: Colors.purple,
-        ),
+        resizeToAvoidBottomInset: false,
         body: Consumer<AuthProvider>(builder: (context, model, child) {
           return Form(
               key: _formKey,
               child: Container(
-                //padding: const EdgeInsets.all(32),
+                color: Colors.orangeAccent,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    Spacer(),
+                    Image.asset(
+                      'imgs/logo.png',
+                      height: 200,
+                      fit: BoxFit.contain,
+                    ),
                     Spacer(),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 32),
@@ -27,26 +29,11 @@ class SingUp extends StatelessWidget {
                           //Text("Digite su nombre Real"),
                           TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.person),
-                          hintText: 'Enter your real name',
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                        },
-                      ),
-                    ),
-                    Spacer(flex: 2),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 32),
-                      child: //Text("Digite su apodo"),
-                          TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.person_pin),
-                          hintText: 'Enter your nickname',
+                          hintText: 'Nombre',
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -61,9 +48,11 @@ class SingUp extends StatelessWidget {
                       //Text("Digite su correo electronico"),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.email),
-                          hintText: 'Enter your email',
+                          hintText: 'Email',
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -78,31 +67,43 @@ class SingUp extends StatelessWidget {
                       //Text("Digite su contraseña"),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.lock),
-                          hintText: 'Enter your password',
+                          hintText: 'Contraseña',
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
                             return 'Please enter some text';
-                          } 
+                          }
                         },
                       ),
                     ),
                     Spacer(),
-                    Expanded(
-                      flex: 2,
-                      child: RaisedButton(
-                        child: Text('Submit', style: TextStyle(color: Colors.white)),
-                        color: Colors.purple,
-                        onPressed: () {
-                          model.setLogged(0);
-                          if (_formKey.currentState.validate()) {
-                            // Si el formulario es válido, queremos mostrar un Snackbar
-                            Scaffold.of(context).showSnackBar(
-                                SnackBar(content: Text('Processing Data')));
-                          }
-                        },
+                    Container(
+                      width: 300,
+                      height: 50,
+                      child: MaterialButton(
+                          child: Text('Crear Cuenta',
+                              style: TextStyle(color: Colors.black)),
+                          color: Colors.white,
+                          onPressed: () {
+                            model.setLogged(0);
+                            if (_formKey.currentState.validate()) {
+                              // Si el formulario es válido, queremos mostrar un Snackbar
+                              Scaffold.of(context).showSnackBar(
+                                  SnackBar(content: Text('Processing Data')));
+                            }
+                          }),
+                    ),
+                    Spacer(),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 32),
+                      child: Center(
+                        child: Text(
+                            'Al crear una cuenta estas de acuerdo con nuestros términos y ' +
+                                'servicios y nuestra politica de privacidad'),
                       ),
                     ),
                   ],

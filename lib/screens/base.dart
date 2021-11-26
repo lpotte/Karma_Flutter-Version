@@ -14,21 +14,20 @@ class BaseApp extends StatelessWidget {
         create: (context) => AuthProvider(),
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Karma',
+            title: 'Pothole',
             home: Consumer<AuthProvider>(
               builder: (context, model, child) {
-                if (model.getLogged == 0){
+                if (model.getLogged == 0) {
                   return BaseHomeApp();
-                }else{
-                  if(model.getLogged == 1){
-                     return LoginView();
-                  }else{
-                    if(model.getLogged == 2){
+                } else {
+                  if (model.getLogged == 1) {
+                    return LoginView();
+                  } else {
+                    if (model.getLogged == 2) {
                       return SingUp();
-                    }else{
+                    } else {
                       return HomeView();
                     }
-                    
                   }
                 }
               },
@@ -39,21 +38,17 @@ class BaseApp extends StatelessWidget {
 class BaseHomeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Karma"),
-          backgroundColor: Colors.purple,
-        ),
-        body: Center(
-          child: Consumer<AuthProvider>(builder: (context, model, child) {
-            return Container(
-                child: Column(
+    return Scaffold(body: Center(
+      child: Consumer<AuthProvider>(builder: (context, model, child) {
+        return Container(
+            color: Colors.orangeAccent,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Spacer(),
                 Image.asset(
-                  'imgs/logo2.png',
-                  height: 250,
+                  'imgs/logo.png',
+                  height: 300,
                   fit: BoxFit.contain,
                 ),
                 Center(
@@ -61,27 +56,27 @@ class BaseHomeApp extends StatelessWidget {
                     onPressed: () {
                       model.setLogged(1);
                     },
-                    child: Text('Sign In', style: TextStyle(color: Colors.white)),
-                    color: Colors.purple,
+                    child:
+                        Text('Sign In', style: TextStyle(color: Colors.black)),
+                    color: Colors.white,
                   ),
                 ),
                 Spacer(flex: 2),
                 Expanded(
-                  flex: 1,
+                    flex: 1,
                     child: Container(
-                  //padding: const EdgeInsets.all(5),
-                  child: MaterialButton(
-                      onPressed: () {
-                        model.setLogged(2);
-                      },
-                      child: Text('Sing Up',
-                          style: TextStyle(color: Colors.white)),
-                      color: Colors.purple),
-                )),
+                      //padding: const EdgeInsets.all(5),
+                      child: MaterialButton(
+                          onPressed: () {
+                            model.setLogged(2);
+                          },
+                          child: Text('Sing Up',
+                              style: TextStyle(color: Colors.black)),
+                          color: Colors.white),
+                    )),
               ],
             ));
-          }),
-        ));
+      }),
+    ));
   }
 }
-

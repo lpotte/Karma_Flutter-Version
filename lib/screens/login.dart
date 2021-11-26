@@ -9,21 +9,19 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Login"),
-          backgroundColor: Colors.purple,
-        ),
+        resizeToAvoidBottomInset: false,
         body: Center(
             child: Consumer<AuthProvider>(builder: (context, model, child) {
           return Form(
               key: _formKey,
               child: Container(
-                //padding: const EdgeInsets.all(32),
+                color: Colors.orangeAccent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    Spacer(),
                     Image.asset(
-                      'imgs/logo2.png',
+                      'imgs/logo.png',
                       height: 200,
                       fit: BoxFit.contain,
                     ),
@@ -33,9 +31,11 @@ class LoginView extends StatelessWidget {
                       //Text("Digite su correo electronico"),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.email),
                           hintText: 'Enter your email',
+                          fillColor: Colors.white,
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -50,9 +50,11 @@ class LoginView extends StatelessWidget {
                       //Text("Digite su contraseña"),
                       child: TextFormField(
                         decoration: InputDecoration(
+                          filled: true,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.lock),
                           hintText: 'Enter your password',
+                          fillColor: Colors.white
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -64,8 +66,8 @@ class LoginView extends StatelessWidget {
                     Spacer(),
                     RaisedButton(
                       child:
-                          Text('Login', style: TextStyle(color: Colors.white)),
-                      color: Colors.purple,
+                          Text('Login', style: TextStyle(color: Colors.black)),
+                      color: Colors.white,
                       onPressed: () {
                         model.setLogged(3);
                         if (_formKey.currentState.validate()) {
